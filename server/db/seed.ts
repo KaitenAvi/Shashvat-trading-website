@@ -1,5 +1,80 @@
 import 'dotenv/config';
-import { db, poolConnection } from './index';
+import { db, poolConnectidApplications.find(a => a.name === name)?.id;
+
+    // Seed Products - 25 products
+    console.log('Seeding products...');
+    const productData = [
+      // PP Products (5)
+      {
+        companyId: getCompanyId('LG Chem'),
+        name: 'LUPOL PP H1500',
+        slug: 'lg-chem-lupol-pp-h1500',
+        heroImage: 'https://images.unsplash.com/photo-1563200155-2ea07c088c22?auto=format&fit=crop&q=80&w=600',
+        shortDescription: 'High-flow polypropylene homopolymer for injection molding applications, offering excellent processability and surface finish.',
+        seoTitle: 'LUPOL PP H1500 – Polypropylene Homopolymer | Shashvat Trading',
+        seoDescription: 'Premium high-flow polypropylene homopolymer designed for thin-wall injection molding. Offers excellent processability, high gloss, and superior surface finish.',
+        contentHtml: `
+          <div class="product-wrapper">
+            <div class="section">
+              <h2 style="color: #1e40af; border-left: 4px solid #3b82f6; padding-left: 12px; margin-bottom: 16px;">Product Overview</h2>
+              <p style="color: #374151; line-height: 1.7;">
+                <strong style="color: #1f2937;">LUPOL PP H1500</strong> is a premium high-flow polypropylene homopolymer manufactured by LG Chem, designed specifically for thin-wall injection molding applications. This versatile resin offers an excellent balance of processability, mechanical performance, and surface aesthetics.
+              </p>
+            </div>
+          
+            <div class="section">
+              <h2 style="color: #1e40af; border-left: 4px solid #3b82f6; padding-left: 12px; margin-bottom: 16px;">Technical Specifications</h2>
+              <div class="table-responsive">
+                <table class="spec-table" style="width: 100%; border-collapse: collapse;">
+                  <thead>
+                    <tr style="background-color: #f1f5f9;">
+                      <th style="padding: 12px; text-align: left; color: #1e40af; border-bottom: 2px solid #3b82f6;">Property</th>
+                      <th style="padding: 12px; text-align: left; color: #1e40af; border-bottom: 2px solid #3b82f6;">Value</th>
+                      <th style="padding: 12px; text-align: left; color: #1e40af; border-bottom: 2px solid #3b82f6;">Test Method</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="background-color: #ffffff;">
+                      <td style="padding: 10px; color: #374151; border-bottom: 1px solid #e5e7eb;">Melt Flow Rate (230°C / 2.16kg)</td>
+                      <td style="padding: 10px; color: #1f2937; font-weight: 600; border-bottom: 1px solid #e5e7eb;">12 g/10min</td>
+                      <td style="padding: 10px; color: #6b7280; border-bottom: 1px solid #e5e7eb;">ISO 1133</td>
+                    </tr>
+                    <tr style="background-color: #f9fafb;">
+                      <td style="padding: 10px; color: #374151; border-bottom: 1px solid #e5e7eb;">Density</td>
+                      <td style="padding: 10px; color: #1f2937; font-weight: 600; border-bottom: 1px solid #e5e7eb;">0.905 g/cm³</td>
+                      <td style="padding: 10px; color: #6b7280; border-bottom: 1px solid #e5e7eb;">ISO 1183</td>
+                    </tr>
+                    <tr style="background-color: #ffffff;">
+                      <td style="padding: 10px; color: #374151; border-bottom: 1px solid #e5e7eb;">Tensile Strength at Yield</td>
+                      <td style="padding: 10px; color: #1f2937; font-weight: 600; border-bottom: 1px solid #e5e7eb;">35 MPa</td>
+                      <td style="padding: 10px; color: #6b7280; border-bottom: 1px solid #e5e7eb;">ISO 527</td>
+                    </tr>
+                    <tr style="background-color: #f9fafb;">
+                      <td style="padding: 10px; color: #374151; border-bottom: 1px solid #e5e7eb;">Flexural Modulus</td>
+                      <td style="padding: 10px; color: #1f2937; font-weight: 600; border-bottom: 1px solid #e5e7eb;">1,450 MPa</td>
+                      <td style="padding: 10px; color: #6b7280; border-bottom: 1px solid #e5e7eb;">ISO 178</td>
+                    </tr>
+                    <tr style="background-color: #ffffff;">
+                      <td style="padding: 10px; color: #374151;">Heat Deflection Temperature</td>
+                      <td style="padding: 10px; color: #1f2937; font-weight: 600;">95°C</td>
+                      <td style="padding: 10px; color: #6b7280;">ISO 75-2</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          
+            <div class="section">
+              <h2 style="color: #1e40af; border-left: 4px solid #3b82f6; padding-left: 12px; margin-bottom: 16px;">Key Benefits</h2>
+              <ul style="list-style: none; padding-left: 0;">
+                <li style="padding: 10px 0; border-left: 3px solid #e5e7eb; padding-left: 16px; margin-bottom: 8px;">
+                  <strong style="color: #1e40af;">Excellent Flow Properties</strong><br>
+                  <span style="color: #374151;">Ideal for thin-wall and complex mold designs</span>
+                </li>
+                <li style="padding: 10px 0; border-left: 3px solid #e5e7eb; padding-left: 16px; margin-bottom: 8px;">
+                  <strong style="color: #1e40af;">Superior Surface Quality</strong><br>
+                  <span style="color: #374151;">High gloss and smooth finish</span>
+                </li>on } from './index';
 import { users, companies, categories, features, applications, products, productCategories, productFeatures, productApplications, blogPosts, productDocuments } from './schema';
 import bcrypt from 'bcryptjs';
 
@@ -134,82 +209,7 @@ async function seed() {
     const getCompanyId = (name: string) => insertedCompanies.find(c => c.name === name)!.id;
     const getCategoryId = (name: string) => insertedCategories.find(c => c.name === name)?.id;
     const getFeatureId = (name: string) => insertedFeatures.find(f => f.name === name)?.id;
-    const getApplicationId = (name: string) => insertedApplications.find(a => a.name === name)?.id;
-
-    // Seed Products - 25 products
-    console.log('Seeding products...');
-    const productData = [
-      // PP Products (5)
-      {
-        companyId: getCompanyId('LG Chem'),
-        name: 'LUPOL PP H1500',
-        slug: 'lg-chem-lupol-pp-h1500',
-        heroImage: 'https://images.unsplash.com/photo-1563200155-2ea07c088c22?auto=format&fit=crop&q=80&w=600',
-        shortDescription: 'High-flow polypropylene homopolymer for injection molding applications, offering excellent processability and surface finish.',
-        seoTitle: 'LUPOL PP H1500 – Polypropylene Homopolymer | Shashvat Trading',
-        seoDescription: 'Premium high-flow polypropylene homopolymer designed for thin-wall injection molding. Offers excellent processability, high gloss, and superior surface finish.',
-        contentHtml: `
-          <div class="product-wrapper">
-            <div class="section">
-              <h2 style="color: #1e40af; border-left: 4px solid #3b82f6; padding-left: 12px; margin-bottom: 16px;">Product Overview</h2>
-              <p style="color: #374151; line-height: 1.7;">
-                <strong style="color: #1f2937;">LUPOL PP H1500</strong> is a premium high-flow polypropylene homopolymer manufactured by LG Chem, designed specifically for thin-wall injection molding applications. This versatile resin offers an excellent balance of processability, mechanical performance, and surface aesthetics.
-              </p>
-            </div>
-          
-            <div class="section">
-              <h2 style="color: #1e40af; border-left: 4px solid #3b82f6; padding-left: 12px; margin-bottom: 16px;">Technical Specifications</h2>
-              <div class="table-responsive">
-                <table class="spec-table" style="width: 100%; border-collapse: collapse;">
-                  <thead>
-                    <tr style="background-color: #f1f5f9;">
-                      <th style="padding: 12px; text-align: left; color: #1e40af; border-bottom: 2px solid #3b82f6;">Property</th>
-                      <th style="padding: 12px; text-align: left; color: #1e40af; border-bottom: 2px solid #3b82f6;">Value</th>
-                      <th style="padding: 12px; text-align: left; color: #1e40af; border-bottom: 2px solid #3b82f6;">Test Method</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr style="background-color: #ffffff;">
-                      <td style="padding: 10px; color: #374151; border-bottom: 1px solid #e5e7eb;">Melt Flow Rate (230°C / 2.16kg)</td>
-                      <td style="padding: 10px; color: #1f2937; font-weight: 600; border-bottom: 1px solid #e5e7eb;">12 g/10min</td>
-                      <td style="padding: 10px; color: #6b7280; border-bottom: 1px solid #e5e7eb;">ISO 1133</td>
-                    </tr>
-                    <tr style="background-color: #f9fafb;">
-                      <td style="padding: 10px; color: #374151; border-bottom: 1px solid #e5e7eb;">Density</td>
-                      <td style="padding: 10px; color: #1f2937; font-weight: 600; border-bottom: 1px solid #e5e7eb;">0.905 g/cm³</td>
-                      <td style="padding: 10px; color: #6b7280; border-bottom: 1px solid #e5e7eb;">ISO 1183</td>
-                    </tr>
-                    <tr style="background-color: #ffffff;">
-                      <td style="padding: 10px; color: #374151; border-bottom: 1px solid #e5e7eb;">Tensile Strength at Yield</td>
-                      <td style="padding: 10px; color: #1f2937; font-weight: 600; border-bottom: 1px solid #e5e7eb;">35 MPa</td>
-                      <td style="padding: 10px; color: #6b7280; border-bottom: 1px solid #e5e7eb;">ISO 527</td>
-                    </tr>
-                    <tr style="background-color: #f9fafb;">
-                      <td style="padding: 10px; color: #374151; border-bottom: 1px solid #e5e7eb;">Flexural Modulus</td>
-                      <td style="padding: 10px; color: #1f2937; font-weight: 600; border-bottom: 1px solid #e5e7eb;">1,450 MPa</td>
-                      <td style="padding: 10px; color: #6b7280; border-bottom: 1px solid #e5e7eb;">ISO 178</td>
-                    </tr>
-                    <tr style="background-color: #ffffff;">
-                      <td style="padding: 10px; color: #374151;">Heat Deflection Temperature</td>
-                      <td style="padding: 10px; color: #1f2937; font-weight: 600;">95°C</td>
-                      <td style="padding: 10px; color: #6b7280;">ISO 75-2</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          
-            <div class="section">
-              <h2 style="color: #1e40af; border-left: 4px solid #3b82f6; padding-left: 12px; margin-bottom: 16px;">Key Benefits</h2>
-              <ul style="list-style: none; padding-left: 0;">
-                <li style="padding: 10px 0; border-left: 3px solid #e5e7eb; padding-left: 16px; margin-bottom: 8px;">
-                  <strong style="color: #1e40af;">Excellent Flow Properties</strong><br>
-                  <span style="color: #374151;">Ideal for thin-wall and complex mold designs</span>
-                </li>
-                <li style="padding: 10px 0; border-left: 3px solid #e5e7eb; padding-left: 16px; margin-bottom: 8px;">
-                  <strong style="color: #1e40af;">Superior Surface Quality</strong><br>
-                  <span style="color: #374151;">High gloss and smooth finish</span>
-                </li>
+    const getApplicationId = (name: string) => inserte
                 <li style="padding: 10px 0; border-left: 3px solid #e5e7eb; padding-left: 16px; margin-bottom: 8px;">
                   <strong style="color: #1e40af;">Good Stiffness</strong><br>
                   <span style="color: #374151;">Ensures dimensional stability</span>

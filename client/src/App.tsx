@@ -74,7 +74,15 @@ function ScrollToTop() {
   const [location] = useLocation();
 
   useEffect(() => {
+    // Immediate scroll to top
     window.scrollTo(0, 0);
+
+    // Safety check: ensure it stays at top after render
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 10);
+
+    return () => clearTimeout(timer);
   }, [location]);
 
   return null;

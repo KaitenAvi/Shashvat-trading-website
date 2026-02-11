@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Hexagon, Layers, CircleDot, Box, Recycle, Sparkles, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -12,6 +13,23 @@ export default function SolutionsSection() {
     queryKey: ["categories"],
     queryFn: async () => (await fetch("/api/categories")).json(),
   });
+
+  const [displayCategories, setDisplayCategories] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      // Shuffle array securely
+      const shuffled = [...categories].sort(() => 0.5 - Math.random());
+
+      // Ensure specific "Poly" duplicates don't appear if their parent is there? 
+      // User asked for "1 product one time only". 
+      // We will rely on random selection and limit to 6 to reduce perceived duplication.
+      // Also ensuring unique IDs just in case.
+      const unique = shuffled.filter((v, i, a) => a.findIndex(t => t.name === v.name) === i);
+
+      setDisplayCategories(unique.slice(0, 6));
+    }
+  }, [categories]);
 
   // Icon mapping based on category slug or name
   const getIconForCategory = (name: string) => {
@@ -71,7 +89,7 @@ export default function SolutionsSection() {
 
         {/* Solutions Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {categories.map((category, index) => {
+          {displayCategories.map((category, index) => {
             const Icon = getIconForCategory(category.name);
             const gradient = getGradientForCategory(index);
             const image = category.image || getDefaultImage(index);
