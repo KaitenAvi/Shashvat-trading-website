@@ -1,6 +1,6 @@
 
 import express from 'express';
-import { registerRoutes } from '../server/routes'; // Adjust path if needed
+import { registerRoutes } from './_lib/routes';
 import path from 'path';
 
 // Create and configure Express app locally in the API function
