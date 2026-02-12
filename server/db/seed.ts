@@ -1,5 +1,140 @@
 import 'dotenv/config';
-import { db, poolConnectidApplications.find(a => a.name === name)?.id;
+import { db, poolConnection } from './index';
+import { users, companies, categories, features, applications, products, productCategories, productFeatures, productApplications, blogPosts, productDocuments, productImages, inquiries, callbackRequests } from './schema';
+import bcrypt from 'bcryptjs';
+
+async function seed() {
+  console.log('🌱 Starting database seed...');
+
+  try {
+    // Clear existing data in reverse order of dependencies
+    console.log('Clearing existing data...');
+    await db.delete(productDocuments);
+    await db.delete(productApplications);
+    await db.delete(productFeatures);
+    await db.delete(productCategories);
+    await db.delete(products);
+    await db.delete(blogPosts);
+    await db.delete(applications);
+    await db.delete(features);
+    await db.delete(categories);
+    await db.delete(companies);
+    await db.delete(users);
+
+    // Seed Admin User
+    console.log('Seeding admin user...');
+    const hashedPassword = await bcrypt.hash('admin123', 10);
+    await db.insert(users).values({
+      email: 'admin@shashvattrading.com',
+      password: hashedPassword,
+      name: 'Admin User',
+      role: 'admin',
+      isActive: true,
+    });
+
+    // Seed Editor User
+    await db.insert(users).values({
+      email: 'editor@shashvattrading.com',
+      password: await bcrypt.hash('editor123', 10),
+      name: 'Content Editor',
+      role: 'editor',
+      isActive: true,
+    });
+
+    // Seed Companies (Manufacturers)
+    console.log('Seeding companies...');
+    const companyData = [
+      { name: 'LG Chem', description: 'Global chemical company producing a wide range of polymers and plastics.', website: 'https://www.lgchem.com' },
+      { name: 'Formosa Plastics', description: 'One of the world\'s largest producers of PVC and polyethylene.', website: 'https://www.fpcusa.com' },
+      { name: 'SABIC', description: 'Saudi Basic Industries Corporation - global leader in diversified chemicals.', website: 'https://www.sabic.com' },
+      { name: 'Reliance Industries', description: 'India\'s largest producer of polypropylene and polyethylene.', website: 'https://www.ril.com' },
+      { name: 'Dow Chemical', description: 'American multinational chemical corporation.', website: 'https://www.dow.com' },
+      { name: 'ExxonMobil', description: 'One of the world\'s largest producers of polyethylene and polypropylene.', website: 'https://www.exxonmobil.com' },
+      { name: 'BASF', description: 'German multinational chemical company and the largest chemical producer in the world.', website: 'https://www.basf.com' },
+      { name: 'Braskem', description: 'Brazilian petrochemical company and the largest producer of thermoplastic resins in the Americas.', website: 'https://www.braskem.com' },
+      { name: 'IRPC', description: 'Thailand\'s leading integrated petrochemical company producing POLIMAXX ABS and other polymers.', website: 'https://www.irpc.co.th' },
+      { name: 'Trinseo', description: 'Global materials solutions provider specializing in plastics, latex binders, and synthetic rubber.', website: 'https://www.trinseo.com' },
+      { name: 'INEOS Styrolution', description: 'The world\'s leading styrenics supplier with a focus on customer-centric innovation.', website: 'https://www.ineos-styrolution.com' },
+      { name: 'Chi Mei', description: 'Leading Taiwanese manufacturer of ABS and engineering plastics.', website: 'https://www.chimeicorp.com' },
+    ];
+
+    for (const company of companyData) {
+      await db.insert(companies).values(company);
+    }
+
+    // Seed Categories
+    console.log('Seeding categories...');
+    const categoryData = [
+      { name: 'Polypropylene (PP)', slug: 'polypropylene-pp', description: 'Versatile thermoplastic polymer used in packaging, automotive, and consumer goods.' },
+      { name: 'Polyethylene (PE)', slug: 'polyethylene-pe', description: 'Most common plastic, includes LDPE, LLDPE, HDPE variants.' },
+      { name: 'PVC', slug: 'pvc', description: 'Polyvinyl chloride for construction, pipes, and flexible applications.' },
+      { name: 'ABS Resins', slug: 'abs-products', description: 'Acrylonitrile butadiene styrene for electronics and automotive.' },
+      { name: 'Polystyrene (PS)', slug: 'polystyrene-ps', description: 'Includes GPPS and HIPS for packaging and disposables.' },
+      { name: 'Engineering Plastics', slug: 'engineering-plastics', description: 'High-performance plastics including PC, PA, POM, PBT.' },
+      { name: 'PET Resins', slug: 'pet-products', description: 'Polyethylene terephthalate for bottles and packaging.' },
+      { name: 'Masterbatch', slug: 'masterbatch', description: 'Concentrated color and additive compounds.' },
+      { name: 'LDPE', slug: 'ldpe', description: 'Low-density polyethylene for films and flexible packaging.' },
+      { name: 'HDPE', slug: 'hdpe', description: 'High-density polyethylene for rigid containers and pipes.' },
+      { name: 'LLDPE', slug: 'lldpe', description: 'Linear low-density polyethylene for stretch films.' },
+      { name: 'PC (Polycarbonate)', slug: 'polycarbonate', description: 'High-impact transparent engineering plastic.' },
+    ];
+
+    for (const category of categoryData) {
+      await db.insert(categories).values(category);
+    }
+
+    // Seed Features
+    console.log('Seeding features...');
+    const featureData = [
+      { name: 'High Impact Resistance', slug: 'high-impact-resistance', description: 'Excellent resistance to physical impact and stress.' },
+      { name: 'UV Stabilized', slug: 'uv-stabilized', description: 'Protected against ultraviolet radiation damage.' },
+      { name: 'Food Grade', slug: 'food-grade', description: 'Safe for food contact applications.' },
+      { name: 'Flame Retardant', slug: 'flame-retardant', description: 'Meets fire safety standards and regulations.' },
+      { name: 'Chemical Resistant', slug: 'chemical-resistant', description: 'Resistant to various chemicals and solvents.' },
+      { name: 'High Clarity', slug: 'high-clarity', description: 'Excellent optical transparency.' },
+      { name: 'High Flow', slug: 'high-flow', description: 'Easy processing with high melt flow index.' },
+      { name: 'Recyclable', slug: 'recyclable', description: 'Can be recycled after use.' },
+      { name: 'Anti-Static', slug: 'anti-static', description: 'Prevents static charge buildup.' },
+      { name: 'Weather Resistant', slug: 'weather-resistant', description: 'Suitable for outdoor applications.' },
+      { name: 'Heat Resistant', slug: 'heat-resistant', description: 'Maintains properties at elevated temperatures.' },
+      { name: 'Low Odor', slug: 'low-odor', description: 'Minimal odor for sensitive applications.' },
+    ];
+
+    for (const feature of featureData) {
+      await db.insert(features).values(feature);
+    }
+
+    // Seed Applications
+    console.log('Seeding applications...');
+    const applicationData = [
+      { name: 'Automotive', slug: 'automotive', description: 'Interior and exterior automotive components.' },
+      { name: 'Packaging', slug: 'packaging', description: 'Flexible and rigid packaging solutions.' },
+      { name: 'Construction', slug: 'construction', description: 'Building materials and infrastructure.' },
+      { name: 'Electronics', slug: 'electronics', description: 'Electronic housings and components.' },
+      { name: 'Consumer Goods', slug: 'consumer-goods', description: 'Household items and appliances.' },
+      { name: 'Medical', slug: 'medical', description: 'Medical devices and healthcare products.' },
+      { name: 'Agriculture', slug: 'agriculture', description: 'Agricultural films and irrigation systems.' },
+      { name: 'Textiles', slug: 'textiles', description: 'Fibers and textile applications.' },
+      { name: 'Pipes & Fittings', slug: 'pipes-fittings', description: 'Plumbing and industrial piping.' },
+      { name: 'Film & Sheet', slug: 'film-sheet', description: 'Films and sheet extrusion applications.' },
+      { name: 'Injection Molding', slug: 'injection-molding', description: 'Parts made via injection molding process.' },
+      { name: 'Blow Molding', slug: 'blow-molding', description: 'Bottles and hollow containers.' },
+    ];
+
+    for (const app of applicationData) {
+      await db.insert(applications).values(app);
+    }
+
+    // Get inserted IDs
+    const insertedCompanies = await db.select().from(companies);
+    const insertedCategories = await db.select().from(categories);
+    const insertedFeatures = await db.select().from(features);
+    const insertedApplications = await db.select().from(applications);
+
+    const getCompanyId = (name: string) => insertedCompanies.find(c => c.name === name)!.id;
+    const getCategoryId = (name: string) => insertedCategories.find(c => c.name === name)?.id;
+    const getFeatureId = (name: string) => insertedFeatures.find(f => f.name === name)?.id;
+    const getApplicationId = (name: string) => insertedApplications.find(a => a.name === name)?.id;
 
     // Seed Products - 25 products
     console.log('Seeding products...');
