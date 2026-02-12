@@ -16,7 +16,6 @@ if (!connectionString) {
 // SSL rejection disabled to avoid self-signed cert errors
 const client = postgres(connectionString, {
     prepare: false,
-    ssl: 'require',
     ssl: { rejectUnauthorized: false }
 });
 
