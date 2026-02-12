@@ -6,7 +6,7 @@ import productsRoutes from "./api/products";
 import authRoutes from "./api/auth";
 import chatRoutes from "./api/chat";
 
-export async function registerRoutes(app: Express): Promise<Server> {
+export function registerRoutes(app: Express) {
   // Register API routes
   console.log("Registering API routes...");
   app.use("/api/auth", authRoutes);
@@ -90,7 +90,5 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  const httpServer = createServer(app);
 
-  return httpServer;
 }
